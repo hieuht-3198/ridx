@@ -1,0 +1,13 @@
+.env
+*__pycache__
+venv/*
+.idea/*
+
+
+Template.xdsl
+Temporal.xdsl
+BN_True.xdsl
+BN_False.xdsl
+DBN.xdsl
+
+tmp.dot

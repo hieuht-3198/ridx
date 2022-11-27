@@ -1,0 +1,1072 @@
+{
+  "_id": {
+    "$oid": "62f72f8105ae330e5850251e"
+  },
+  "name": "MM.DS.04",
+  "description": "Kịch bản triển khai 1 cho hệ thống Meeting minutes",
+  "status": "Operations",
+  "system_profile_id": {
+    "$oid": "62c299b569e37b3cc7970bd3"
+  },
+  "security_goals": [
+    {
+      "id": "1",
+      "name": "Quyền root trên HĐH được bảo vệ",
+      "description": "Đảm bảo quyền root được bảo vệ",
+      "asset_id": "62f71992a2dbbfc97e8d2964",
+      "confidentiality": "HIGH",
+      "availability": "HIGH",
+      "integrity": "HIGH"
+    },
+    {
+      "id": "2",
+      "name": "HĐH luôn hoạt động 24/7",
+      "description": "Luôn luôn hoạt động",
+      "asset_id": "62f71992a2dbbfc97e8d2964",
+      "confidentiality": "HIGH",
+      "availability": "HIGH",
+      "integrity": "HIGH"
+    },
+    {
+      "id": "3",
+      "name": "Hệ điều hành luôn hoạt động ổn định",
+      "description": "Hoạt động ổn định",
+      "asset_id": "62f71992a2dbbfc97e8d2964",
+      "confidentiality": "LOW",
+      "availability": "MEDIUM",
+      "integrity": "HIGH"
+    },
+    {
+      "id": "4",
+      "name": "Dữ liệu được bảo vệ",
+      "description": "Dữ liệu được bảo mật",
+      "asset_id": "62f7199e4098c9322e7d2dec",
+      "confidentiality": "HIGH",
+      "availability": "LOW",
+      "integrity": "LOW"
+    },
+    {
+      "id": "5",
+      "name": "Hệ cơ sở dữ liệu luôn sẵn sàng",
+      "description": "Dữ liệu luôn sẵn sàng",
+      "asset_id": "62f7199e4098c9322e7d2dec",
+      "confidentiality": "HIGH",
+      "availability": "HIGH",
+      "integrity": "MEDIUM"
+    },
+    {
+      "id": "6",
+      "name": "Dữ liệu được mã hóa đầy đủ",
+      "description": "Dữ liệu cá nhân của người dùng phải được mã hóa trước khi lưu",
+      "asset_id": "62f7199e4098c9322e7d2dec",
+      "confidentiality": "HIGH",
+      "availability": "LOW",
+      "integrity": "HIGH"
+    },
+    {
+      "id": "7",
+      "name": "Quyền root trên CSDL được bảo vệ",
+      "description": "Đảm bảo quyền root được bảo vệ",
+      "asset_id": "62f7199e4098c9322e7d2dec",
+      "confidentiality": "HIGH",
+      "availability": "HIGH",
+      "integrity": "HIGH"
+    },
+    {
+      "id": "8",
+      "name": "Máy chủ Web luôn họat động 24/7",
+      "description": "Luôn luôn hoạt động",
+      "asset_id": "62f71958cb129026f9cb70e6",
+      "confidentiality": "LOW",
+      "availability": "HIGH",
+      "integrity": "MEDIUM"
+    },
+    {
+      "id": "9",
+      "name": "Máy chủ Web có khả năng tự điều phối giao tiếp",
+      "description": "Máy chủ hoạt động tốt",
+      "asset_id": "62f71958cb129026f9cb70e6",
+      "confidentiality": "LOW",
+      "availability": "HIGH",
+      "integrity": "MEDIUM"
+    }
+  ],
+  "countermeasures": [
+    {
+      "name": "Running the clustering communication over a VPN",
+      "cost": 100,
+      "coverage": 0.8,
+      "cover_cves": [
+        "CVE-2022-29885"
+      ],
+      "id": "1"
+    }
+  ],
+  "assets": [
+    {
+      "id": "62f71958cb129026f9cb70e6",
+      "server": "MM.S.01",
+      "name": "Web Server",
+      "part": "a",
+      "vendor": "Apache",
+      "product": "Apache Tomcat",
+      "version": "9.0.62",
+      "cpe": "cpe:2.3:a:apache:tomcat:9.0.62:*:*:*:*:*:*:*",
+      "custom_fields": {}
+    },
+    {
+      "id": "62f7199e4098c9322e7d2dec",
+      "server": "MM.S.03",
+      "name": "Database Server",
+      "part": "a",
+      "vendor": "MariaDB",
+      "product": "MariaDB",
+      "version": "10.0.38",
+      "cpe": "cpe:2.3:a:mariadb:mariadb:10.0.38:*:*:*:*:*:*:*",
+      "custom_fields": {}
+    }
+  ],
+  "asset_relationships": [
+    {
+      "id": "1",
+      "source": "62f71958cb129026f9cb70e6",
+      "target": "62f7199e4098c9322e7d2dec",
+      "access_vector": "NETWORK",
+      "privilege": "NONE"
+    }
+  ],
+  "cves": [
+    {
+      "asset_id": "62f71958cb129026f9cb70e6",
+      "cves": [
+        {
+          "cve_id": "CVE-2022-29885",
+          "cwe_id": "CWE-400",
+          "description": "The documentation of Apache Tomcat 10.1.0-M1 to 10.1.0-M14, 10.0.0-M1 to 10.0.20, 9.0.13 to 9.0.62 and 8.5.38 to 8.5.78 for the EncryptInterceptor incorrectly stated it enabled Tomcat clustering to run over an untrusted network. This was not correct. While the EncryptInterceptor does provide confidentiality and integrity protection, it does not protect against all risks associated with running over any untrusted network, particularly DoS risks.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 5
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 10,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "NONE"
+          }
+        }
+      ]
+    },
+    {
+      "asset_id": "62f7199e4098c9322e7d2dec",
+      "cves": [
+        {
+          "cve_id": "CVE-2022-27382",
+          "cwe_id": "CWE-617",
+          "description": "MariaDB Server v10.7 and below was discovered to contain a segmentation fault via the component Item_field::used_tables/update_depend_map_for_order.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 5
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 10,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2022-27444",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "MariaDB Server v10.9 and below was discovered to contain a segmentation fault via the component sql/item_subselect.cc.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 5
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 10,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2022-27446",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "MariaDB Server v10.9 and below was discovered to contain a segmentation fault via the component sql/item_cmpfunc.h.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 5
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 10,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2022-27451",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "MariaDB Server v10.9 and below was discovered to contain a segmentation fault via the component sql/field_conv.cc.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 5
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 10,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2022-27452",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "MariaDB Server v10.9 and below was discovered to contain a segmentation fault via the component sql/item_cmpfunc.cc.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 5
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 10,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2022-27455",
+          "cwe_id": "CWE-416",
+          "description": "MariaDB Server v10.6.3 and below was discovered to contain an use-after-free in the component my_wildcmp_8bit_impl at /strings/ctype-simple.c.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 5
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 10,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2022-27457",
+          "cwe_id": "CWE-416",
+          "description": "MariaDB Server v10.6.3 and below was discovered to contain an use-after-free in the component my_mb_wc_latin1 at /strings/ctype-latin1.c.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 5
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 10,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2022-31621",
+          "cwe_id": "CWE-667",
+          "description": "MariaDB Server before 10.7 is vulnerable to Denial of Service. In extra/mariabackup/ds_xbstream.cc, when an error occurs (stream_ctxt->dest_file == NULL) while executing the method xbstream_open, the held lock is not released correctly, which allows local users to trigger a denial of service due to the deadlock.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "LOCAL",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 2.1
+              },
+              "severity": "LOW",
+              "exploitabilityScore": 3.9,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "LOCAL",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2022-31624",
+          "cwe_id": "CWE-404",
+          "description": "MariaDB Server before 10.7 is vulnerable to Denial of Service. While executing the plugin/server_audit/server_audit.c method log_statement_ex, the held lock lock_bigbuffer is not released correctly, which allows local users to trigger a denial of service due to the deadlock.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "LOCAL",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 2.1
+              },
+              "severity": "LOW",
+              "exploitabilityScore": 3.9,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "LOCAL",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2021-46657",
+          "cwe_id": "CWE-400",
+          "description": "get_sort_by_table in MariaDB before 10.6.2 allows an application crash via certain subquery uses of ORDER BY.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "LOCAL",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 2.1
+              },
+              "severity": "LOW",
+              "exploitabilityScore": 3.9,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "LOCAL",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2021-46659",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "MariaDB before 10.7.2 allows an application crash because it does not recognize that SELECT_LEX::nest_level is local to each VIEW.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "LOCAL",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 2.1
+              },
+              "severity": "LOW",
+              "exploitabilityScore": 3.9,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "LOCAL",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2021-46666",
+          "cwe_id": "CWE-617",
+          "description": "MariaDB before 10.6.2 allows an application crash because of mishandling of a pushdown from a HAVING clause to a WHERE clause.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "LOCAL",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 2.1
+              },
+              "severity": "LOW",
+              "exploitabilityScore": 3.9,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "LOCAL",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2021-46667",
+          "cwe_id": "CWE-190",
+          "description": "MariaDB before 10.6.5 has a sql_lex.cc integer overflow, leading to an application crash.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:P",
+                "accessVector": "LOCAL",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 2.1
+              },
+              "severity": "LOW",
+              "exploitabilityScore": 3.9,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "LOCAL",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2020-28912",
+          "cwe_id": "NVD-CWE-Other",
+          "description": "With MariaDB running on Windows, when local clients connect to the server over named pipes, it's possible for an unprivileged user with an ability to run code on the server machine to intercept the named pipe connection and act as a man-in-the-middle, gaining access to all the data passed between the client and the server, and getting the ability to run SQL commands on behalf of the connected user. This occurs because of an incorrect security descriptor. This affects MariaDB Server before 10.1.48, 10.2.x before 10.2.35, 10.3.x before 10.3.26, 10.4.x before 10.4.16, and 10.5.x before 10.5.7. NOTE: this issue exists because certain details of the MariaDB CVE-2019-2503 fix did not comprehensively address attack variants against MariaDB. This situation is specific to MariaDB, and thus CVE-2020-28912 does NOT apply to other vendors that were originally affected by CVE-2019-2503.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "attackVector": "LOCAL",
+                "attackComplexity": "HIGH",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH",
+                "baseScore": 7,
+                "baseSeverity": "HIGH"
+              },
+              "exploitabilityScore": 1,
+              "impactScore": 5.9
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:L/AC:M/Au:N/C:P/I:P/A:P",
+                "accessVector": "LOCAL",
+                "accessComplexity": "MEDIUM",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4.4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 3.4,
+              "impactScore": 6.4,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "LOCAL",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2017-15365",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "sql/event_data_objects.cc in MariaDB before 10.1.30 and 10.2.x before 10.2.10 and Percona XtraDB Cluster before 5.6.37-26.21-3 and 5.7.x before 5.7.19-29.22-3 allows remote authenticated users with SQL access to bypass intended access restrictions and replicate data definition language (DDL) statements to cluster nodes by leveraging incorrect ordering of DDL replication and ACL checking.",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.0",
+                "vectorString": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH",
+                "baseScore": 8.8,
+                "baseSeverity": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 5.9
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6.5
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 6.4,
+              "acInsufInfo": true,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": ""
+          }
+        }
+      ]
+    }
+  ],
+  "attack_graph": {
+    "nodes": [
+      {
+        "x": 39,
+        "y": 104,
+        "id": "0",
+        "label": "Remote Attacker (Internet)",
+        "type": "node",
+        "shape": "flow-circle",
+        "is_attacker": true,
+        "color": "#FA8C16",
+        "attacker_id": "62f72f9b05ae330e5850251f",
+        "index": 16
+      },
+      {
+        "x": 164,
+        "y": 104,
+        "id": "1",
+        "label": "CVE-2022-29885",
+        "type": "node",
+        "shape": "flow-capsule",
+        "is_attacker": false,
+        "color": "#722ED1",
+        "asset_id": "62f71958cb129026f9cb70e6",
+        "cve_id": "CVE-2022-29885",
+        "index": 17
+      },
+      {
+        "x": 321,
+        "y": 104,
+        "id": "2",
+        "label": "CVE-2022-27382",
+        "type": "node",
+        "shape": "flow-capsule",
+        "is_attacker": false,
+        "color": "#722ED1",
+        "asset_id": "62f7199e4098c9322e7d2dec",
+        "cve_id": "CVE-2022-27382",
+        "index": 18
+      },
+      {
+        "x": 949,
+        "y": 139,
+        "id": "6",
+        "label": "CVE-2022-27455",
+        "type": "node",
+        "shape": "flow-capsule",
+        "is_attacker": false,
+        "color": "#722ED1",
+        "asset_id": "62f7199e4098c9322e7d2dec",
+        "cve_id": "CVE-2022-27455",
+        "index": 22
+      }
+    ],
+    "edges": [
+      {
+        "id": "7",
+        "source": "0",
+        "target": "1",
+        "index": 0
+      },
+      {
+        "id": "8",
+        "source": "1",
+        "target": "2",
+        "index": 1
+      },
+      {
+        "id": "22",
+        "source": "1",
+        "target": "6",
+        "index": 15
+      }
+    ]
+  },
+  "active": {
+    "62f71958cb129026f9cb70e6": [
+      "CVE-2022-29885"
+    ],
+    "62f7199e4098c9322e7d2dec": [
+      "CVE-2022-27382",
+      "CVE-2022-27455"
+    ]
+  },
+  "target": {
+    "asset_id": "62f7199e4098c9322e7d2dec",
+    "cve_id": "CVE-2022-27455"
+  },
+  "attackers": [
+    {
+      "targets": [
+        {
+          "asset_id": "62f71958cb129026f9cb70e6",
+          "attack_vector": "NETWORK",
+          "privilege": "NONE"
+        }
+      ],
+      "name": "Remote Attacker (Internet)",
+      "description": "Mối đe dọa Internet",
+      "type": "Information Disclosure",
+      "id": "62f72f9b05ae330e5850251f"
+    }
+  ],
+  "exploitability": "Proof-of-Concept",
+  "remediation_level": "Unavailable",
+  "report_confidence": "Unconfirmed"
+}

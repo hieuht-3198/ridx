@@ -1,0 +1,79 @@
+
+
+version: '3.3'
+
+networks:
+  default:
+  # fastapi-network:
+  #   ipam:
+  #     config: 
+  #       - subnet: 172.18.0.0/16
+
+services:
+  fastapi:
+    image: hocsinhnghiemtuc/fastapi
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload --workers 2
+    volumes: 
+      - ${SERVER_PATH}:/server
+    container_name: ${COMPOSE_PROJECT_NAME}_fastapi
+    ports:
+      - 8000:8000
+    tty: true
+    working_dir: /server
+    restart: always
+    networks:
+      default:
+      # fastapi-network:
+      #     ipv4_address: 172.18.0.18
+  mongodb:
+    image: mongo:4.4-rc
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./data/mongodb:/data/db
+    restart: always
+    container_name: "${COMPOSE_PROJECT_NAME}_mongodb"
+    ports:
+      - ${DB_PORT:-27017}:27017
+    logging:
+      driver: none
+    networks:
+      default:
+      # mongodb-network:
+      #   ipv4_address: 172.20.0.20
+  nginx:
+    image: nginx:alpine
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+    restart: always
+    entrypoint: sh
+    command:
+      - -c
+      - envsubst '$${DOCUMENT_ROOT}' < /etc/nginx/conf.d/default.conf.tpl | tee /etc/nginx/conf.d/default.conf && exec nginx -g "daemon off;"
+    environment:
+      - DOCUMENT_ROOT=${NGINX_DOCUMENT_ROOT:-/web/public}
+      - DOMAIN=${DOMAIN:-localhost}
+    volumes:
+      - ${NGINX_CONFIG_PASSWORD:-./config/nginx/dev/.htpasswd}:/etc/nginx/.htpasswd
+      - ${NGINX_CONFIG_TEMPLATE:-./config/nginx/dev/default.conf}:/etc/nginx/conf.d/default.conf.tpl:ro
+      - ./config/nginx/dev/nginx.crt:/etc/nginx/certs/nginx.crt
+      - ./config/nginx/dev/nginx.key:/etc/nginx/certs/nginx.key
+    ports:
+      - ${PORT:-80}:80
+      - 443:443
+    networks:
+      default:
+    logging:
+      driver: none
+
+  react:
+    image: node:14.17.6-alpine
+    # command: yarn start
+    volumes:
+      - ${WEB_PATH}:/web
+    restart: always
+    container_name: ${COMPOSE_PROJECT_NAME}_react
+    tty: true
+    working_dir: /web
+    networks:
+      default:

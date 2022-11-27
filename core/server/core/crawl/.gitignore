@@ -1,0 +1,6 @@
+*__pycache__
+input/*
+output/*
+nvdcpematch-1.0.json
+cpe_matches.json
+official-cpe-dictionary_v2.3.xml

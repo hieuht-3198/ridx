@@ -1,0 +1,1896 @@
+{
+  "_id": {
+    "$oid": "62ab02df48231cfdd0029cac"
+  },
+  "name": "Kịch bản triển khai 1",
+  "description": "Kịch bản này sử dụng các giao tiếp giữa các module trong hệ thống mà không cần phải đăng nhập. Giao tiếp giữa các thành phần sử dụng mạng đơn thuần. Cấu hình các thành phần có sử dụng lại của kiến trúc hiện tại.",
+  "status": "Design",
+  "system_profile_id": {
+    "$oid": "62a8434de97ead4b50091a55"
+  },
+  "security_goals": [
+    {
+      "id": "1",
+      "name": "Bảo đảm máy chủ WebServer hoạt động 24/7",
+      "description": "Máy chủ WebServer luôn luôn hoạt động",
+      "asset_id": "A3",
+      "confidentiality": "HIGH",
+      "availability": "HIGH",
+      "integrity": "LOW"
+    },
+    {
+      "id": "2",
+      "name": "Toàn vẹn dữ liệu",
+      "description": "Dữ liệu không bị đánh cắp trên máy chủ DB Server",
+      "asset_id": "A5",
+      "confidentiality": "HIGH",
+      "availability": "HIGH",
+      "integrity": "HIGH"
+    }
+  ],
+  "countermeasures": [
+    {
+      "name": "Tắt Rewrite module trên Apache",
+      "cost": 100,
+      "coverage": 0.7,
+      "cover_cves": [
+        "CVE-2006-3747"
+      ]
+    },
+    {
+      "name": "Hoạt hóa dispatch_command function trong libmysqld/sql_parse.cc",
+      "cost": 150,
+      "coverage": 0.4,
+      "cover_cves": [
+        "CVE-2009-2446"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "A1",
+      "server": "WebServer",
+      "name": "Hệ điều hành Linux trên máy chủ WebServer",
+      "part": "o",
+      "vendor": "Linux",
+      "product": "Linux Kernel",
+      "version": "2.6.1",
+      "cpe": "",
+      "custom_fields": {}
+    },
+    {
+      "id": "A2",
+      "server": "LoginServer",
+      "name": "Hệ điều hành Linux trên máy chủ LoginServer",
+      "part": "o",
+      "vendor": "Linux",
+      "product": "Linux Kernel",
+      "version": "2.6.1",
+      "cpe": "",
+      "custom_fields": {}
+    },
+    {
+      "id": "A3",
+      "server": "WebServer",
+      "name": "Máy chủ Apache trên WebServer",
+      "part": "a",
+      "vendor": "Apache",
+      "product": "HTTP_Server",
+      "version": "1.3.3",
+      "cpe": "",
+      "custom_fields": {
+        "Mô tả": "Máy chủ giao tiếp giữa các phần liên quan đến hệ thống",
+        "Đặc điểm": "Máy chủ có sẵn trong tài sản của công ty",
+        "RAM": "8GB",
+        "Storage": "50GB"
+      }
+    },
+    {
+      "id": "A4",
+      "server": "LoginServer",
+      "name": "Ứng dụng quản lý đăng nhập",
+      "part": "a",
+      "vendor": "OpenBSD",
+      "product": "OpenSSH",
+      "version": "3",
+      "cpe": "",
+      "custom_fields": {
+        "Mô tả": "Máy chủ giao tiếp giữa các phần liên quan đến hệ thống",
+        "Đặc điểm": "Máy chủ có sẵn trong tài sản của công ty",
+        "RAM": "8GB",
+        "Storage": "40GB"
+      }
+    },
+    {
+      "id": "A5",
+      "server": "DatabaseServer",
+      "name": "Hệ cơ sở dữ liệu MySQL",
+      "part": "a",
+      "vendor": "Oracle",
+      "product": "MySQL",
+      "version": "5.0.25",
+      "cpe": "cpe:2.3:a:oracle:mysql:5.0.25:*:*:*:*:*:*:*",
+      "custom_fields": {
+        "Mô tả": "Chứa nhiều dữ liệu quan trọng của hệ thống",
+        "Đặc điểm": "Máy chủ có sẵn trong tài sản của công ty",
+        "RAM": "8GB"
+      }
+    },
+    {
+      "id": "A6",
+      "server": "DatabaseServer",
+      "name": "Hệ điều hành Linux trên máy chủ DatabaseServer",
+      "part": "o",
+      "vendor": "Linux",
+      "product": "Linux Kernel",
+      "version": "2.6.1",
+      "cpe": "",
+      "custom_fields": {}
+    }
+  ],
+  "asset_relationships": [
+    {
+      "id": "1",
+      "source": "A3",
+      "target": "A1",
+      "access_vector": "NETWORK",
+      "privilege": "OS_ADMIN"
+    },
+    {
+      "id": "2",
+      "source": "A4",
+      "target": "A2",
+      "access_vector": "NETWORK",
+      "privilege": "APP_USER"
+    },
+    {
+      "id": "3",
+      "source": "A3",
+      "target": "A4",
+      "access_vector": "NETWORK",
+      "privilege": "OS_ADMIN"
+    },
+    {
+      "id": "4",
+      "source": "A3",
+      "target": "A5",
+      "access_vector": "NETWORK",
+      "privilege": "APP_USER"
+    },
+    {
+      "id": "5",
+      "source": "A5",
+      "target": "A6",
+      "access_vector": "LOCAL",
+      "privilege": "APP_USER"
+    }
+  ],
+  "cves": [
+    {
+      "asset_id": "A1",
+      "cves": [
+        {
+          "cve_id": "CVE-2007-2583",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "The in_decimal::set function in item_cmpfunc.cc in MySQL before 5.0.40, and 5.1 before 5.1.18-beta, allows context-dependent attackers to cause a denial of service (crash) via a crafted IF clause that results in a divide-by-zero error and a NULL pointer dereference.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-0226",
+          "cwe_id": "CWE-119",
+          "description": "Multiple buffer overflows in yaSSL 1.7.5 and earlier, as used in MySQL and possibly other products, allow remote attackers to execute arbitrary code via (1) the ProcessOldClientHello function in handshake.cpp or (2) \"input_buffer& operator>>\" in yassl_imp.cpp.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": "OS_USER"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-3963",
+          "cwe_id": "CWE-134",
+          "description": "MySQL 5.0 before 5.0.66, 5.1 before 5.1.26, and 6.0 before 6.0.6 does not properly handle a b'' (b single-quote single-quote) token, aka an empty bit-string literal, which allows remote attackers to cause a denial of service (daemon crash) by using this token in a SQL statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-4098",
+          "cwe_id": "CWE-59",
+          "description": "MySQL before 5.0.67 allows local users to bypass certain privilege checks by calling CREATE TABLE on a MyISAM table with modified (1) DATA DIRECTORY or (2) INDEX DIRECTORY arguments that are originally associated with pathnames without symlinks, and that can point to tables created at a future time at which a pathname is modified to contain a symlink to a subdirectory of the MySQL home data directory. NOTE: this vulnerability exists because of an incomplete fix for CVE-2008-4097.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:H/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "HIGH",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4.6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 3.9,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": true,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "LOCAL",
+          "condition": {
+            "preCondition": "OS_ADMIN",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2008-7247",
+          "cwe_id": "CWE-59",
+          "description": "sql/sql_table.cc in MySQL 5.0.x through 5.0.88, 5.1.x through 5.1.41, and 6.0 before 6.0.9-alpha, when the data home directory contains a symlink to a different filesystem, allows remote authenticated users to bypass intended access restrictions by calling CREATE TABLE with a (1) DATA DIRECTORY or (2) INDEX DIRECTORY argument referring to a subdirectory that requires following this symlink.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 6.8,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2009-2446",
+          "cwe_id": "CWE-134",
+          "description": "Multiple format string vulnerabilities in the dispatch_command function in libmysqld/sql_parse.cc in mysqld in MySQL 4.0.0 through 5.0.83 allow remote authenticated users to cause a denial of service (daemon crash) and possibly have unspecified other impact via format string specifiers in a database name in a (1) COM_CREATE_DB or (2) COM_DROP_DB request.  NOTE: some of these details are obtained from third party information.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:C/I:C/A:C",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE",
+                "baseScore": 8.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 6.8,
+              "impactScore": 10,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "APP_USER"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4019",
+          "cwe_id": "NVD-CWE-Other",
+          "description": "mysqld in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41 does not (1) properly handle errors during execution of certain SELECT statements with subqueries, and does not (2) preserve certain null_value flags during execution of statements that use the GeomFromWKB function, which allows remote authenticated users to cause a denial of service (daemon crash) via a crafted statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4028",
+          "cwe_id": "CWE-20",
+          "description": "The vio_verify_callback function in viosslfactories.c in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41, when OpenSSL is used, accepts a value of zero for the depth of X.509 certificates, which allows man-in-the-middle attackers to spoof arbitrary SSL-based MySQL servers via a crafted certificate, as demonstrated by a certificate presented by a server linked against the yaSSL library.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6.8
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8.6,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": true
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4484",
+          "cwe_id": "CWE-787",
+          "description": "Multiple stack-based buffer overflows in the CertDecoder::GetName function in src/asn.cpp in TaoCrypt in yaSSL before 1.9.9, as used in mysqld in MySQL 5.0.x before 5.0.90, MySQL 5.1.x before 5.1.43, MySQL 5.5.x through 5.5.0-m2, and other products, allow remote attackers to execute arbitrary code or cause a denial of service (memory corruption and daemon crash) by establishing an SSL connection and sending an X.509 client certificate with a crafted name field, as demonstrated by mysql_overflow1.py and the vd_mysql5 module in VulnDisco Pack Professional 8.11. NOTE: this was originally reported for MySQL 5.0.51a.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "acInsufInfo": true,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "OS_USER"
+          }
+        }
+      ]
+    },
+    {
+      "asset_id": "A2",
+      "cves": [
+        {
+          "cve_id": "CVE-2007-2583",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "The in_decimal::set function in item_cmpfunc.cc in MySQL before 5.0.40, and 5.1 before 5.1.18-beta, allows context-dependent attackers to cause a denial of service (crash) via a crafted IF clause that results in a divide-by-zero error and a NULL pointer dereference.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-0226",
+          "cwe_id": "CWE-119",
+          "description": "Multiple buffer overflows in yaSSL 1.7.5 and earlier, as used in MySQL and possibly other products, allow remote attackers to execute arbitrary code via (1) the ProcessOldClientHello function in handshake.cpp or (2) \"input_buffer& operator>>\" in yassl_imp.cpp.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "OS_USER"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-3963",
+          "cwe_id": "CWE-134",
+          "description": "MySQL 5.0 before 5.0.66, 5.1 before 5.1.26, and 6.0 before 6.0.6 does not properly handle a b'' (b single-quote single-quote) token, aka an empty bit-string literal, which allows remote attackers to cause a denial of service (daemon crash) by using this token in a SQL statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-4098",
+          "cwe_id": "CWE-59",
+          "description": "MySQL before 5.0.67 allows local users to bypass certain privilege checks by calling CREATE TABLE on a MyISAM table with modified (1) DATA DIRECTORY or (2) INDEX DIRECTORY arguments that are originally associated with pathnames without symlinks, and that can point to tables created at a future time at which a pathname is modified to contain a symlink to a subdirectory of the MySQL home data directory. NOTE: this vulnerability exists because of an incomplete fix for CVE-2008-4097.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:H/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "HIGH",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4.6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 3.9,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": true,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2008-7247",
+          "cwe_id": "CWE-59",
+          "description": "sql/sql_table.cc in MySQL 5.0.x through 5.0.88, 5.1.x through 5.1.41, and 6.0 before 6.0.9-alpha, when the data home directory contains a symlink to a different filesystem, allows remote authenticated users to bypass intended access restrictions by calling CREATE TABLE with a (1) DATA DIRECTORY or (2) INDEX DIRECTORY argument referring to a subdirectory that requires following this symlink.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 6.8,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2009-2446",
+          "cwe_id": "CWE-134",
+          "description": "Multiple format string vulnerabilities in the dispatch_command function in libmysqld/sql_parse.cc in mysqld in MySQL 4.0.0 through 5.0.83 allow remote authenticated users to cause a denial of service (daemon crash) and possibly have unspecified other impact via format string specifiers in a database name in a (1) COM_CREATE_DB or (2) COM_DROP_DB request.  NOTE: some of these details are obtained from third party information.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:C/I:C/A:C",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE",
+                "baseScore": 8.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 6.8,
+              "impactScore": 10,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "APP_USER"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4019",
+          "cwe_id": "NVD-CWE-Other",
+          "description": "mysqld in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41 does not (1) properly handle errors during execution of certain SELECT statements with subqueries, and does not (2) preserve certain null_value flags during execution of statements that use the GeomFromWKB function, which allows remote authenticated users to cause a denial of service (daemon crash) via a crafted statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4028",
+          "cwe_id": "CWE-20",
+          "description": "The vio_verify_callback function in viosslfactories.c in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41, when OpenSSL is used, accepts a value of zero for the depth of X.509 certificates, which allows man-in-the-middle attackers to spoof arbitrary SSL-based MySQL servers via a crafted certificate, as demonstrated by a certificate presented by a server linked against the yaSSL library.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6.8
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8.6,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": true
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4484",
+          "cwe_id": "CWE-787",
+          "description": "Multiple stack-based buffer overflows in the CertDecoder::GetName function in src/asn.cpp in TaoCrypt in yaSSL before 1.9.9, as used in mysqld in MySQL 5.0.x before 5.0.90, MySQL 5.1.x before 5.1.43, MySQL 5.5.x through 5.5.0-m2, and other products, allow remote attackers to execute arbitrary code or cause a denial of service (memory corruption and daemon crash) by establishing an SSL connection and sending an X.509 client certificate with a crafted name field, as demonstrated by mysql_overflow1.py and the vd_mysql5 module in VulnDisco Pack Professional 8.11. NOTE: this was originally reported for MySQL 5.0.51a.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "acInsufInfo": true,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "OS_USER"
+          }
+        }
+      ]
+    },
+    {
+      "asset_id": "A3",
+      "cves": [
+        {
+          "cve_id": "CVE-2007-2583",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "The in_decimal::set function in item_cmpfunc.cc in MySQL before 5.0.40, and 5.1 before 5.1.18-beta, allows context-dependent attackers to cause a denial of service (crash) via a crafted IF clause that results in a divide-by-zero error and a NULL pointer dereference.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-0226",
+          "cwe_id": "CWE-119",
+          "description": "Multiple buffer overflows in yaSSL 1.7.5 and earlier, as used in MySQL and possibly other products, allow remote attackers to execute arbitrary code via (1) the ProcessOldClientHello function in handshake.cpp or (2) \"input_buffer& operator>>\" in yassl_imp.cpp.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "OS_USER"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-3963",
+          "cwe_id": "CWE-134",
+          "description": "MySQL 5.0 before 5.0.66, 5.1 before 5.1.26, and 6.0 before 6.0.6 does not properly handle a b'' (b single-quote single-quote) token, aka an empty bit-string literal, which allows remote attackers to cause a denial of service (daemon crash) by using this token in a SQL statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-4098",
+          "cwe_id": "CWE-59",
+          "description": "MySQL before 5.0.67 allows local users to bypass certain privilege checks by calling CREATE TABLE on a MyISAM table with modified (1) DATA DIRECTORY or (2) INDEX DIRECTORY arguments that are originally associated with pathnames without symlinks, and that can point to tables created at a future time at which a pathname is modified to contain a symlink to a subdirectory of the MySQL home data directory. NOTE: this vulnerability exists because of an incomplete fix for CVE-2008-4097.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:H/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "HIGH",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4.6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 3.9,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": true,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2008-7247",
+          "cwe_id": "CWE-59",
+          "description": "sql/sql_table.cc in MySQL 5.0.x through 5.0.88, 5.1.x through 5.1.41, and 6.0 before 6.0.9-alpha, when the data home directory contains a symlink to a different filesystem, allows remote authenticated users to bypass intended access restrictions by calling CREATE TABLE with a (1) DATA DIRECTORY or (2) INDEX DIRECTORY argument referring to a subdirectory that requires following this symlink.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 6.8,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2009-2446",
+          "cwe_id": "CWE-134",
+          "description": "Multiple format string vulnerabilities in the dispatch_command function in libmysqld/sql_parse.cc in mysqld in MySQL 4.0.0 through 5.0.83 allow remote authenticated users to cause a denial of service (daemon crash) and possibly have unspecified other impact via format string specifiers in a database name in a (1) COM_CREATE_DB or (2) COM_DROP_DB request.  NOTE: some of these details are obtained from third party information.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:C/I:C/A:C",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE",
+                "baseScore": 8.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 6.8,
+              "impactScore": 10,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "APP_USER"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4019",
+          "cwe_id": "NVD-CWE-Other",
+          "description": "mysqld in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41 does not (1) properly handle errors during execution of certain SELECT statements with subqueries, and does not (2) preserve certain null_value flags during execution of statements that use the GeomFromWKB function, which allows remote authenticated users to cause a denial of service (daemon crash) via a crafted statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4028",
+          "cwe_id": "CWE-20",
+          "description": "The vio_verify_callback function in viosslfactories.c in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41, when OpenSSL is used, accepts a value of zero for the depth of X.509 certificates, which allows man-in-the-middle attackers to spoof arbitrary SSL-based MySQL servers via a crafted certificate, as demonstrated by a certificate presented by a server linked against the yaSSL library.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6.8
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8.6,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": true
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4484",
+          "cwe_id": "CWE-787",
+          "description": "Multiple stack-based buffer overflows in the CertDecoder::GetName function in src/asn.cpp in TaoCrypt in yaSSL before 1.9.9, as used in mysqld in MySQL 5.0.x before 5.0.90, MySQL 5.1.x before 5.1.43, MySQL 5.5.x through 5.5.0-m2, and other products, allow remote attackers to execute arbitrary code or cause a denial of service (memory corruption and daemon crash) by establishing an SSL connection and sending an X.509 client certificate with a crafted name field, as demonstrated by mysql_overflow1.py and the vd_mysql5 module in VulnDisco Pack Professional 8.11. NOTE: this was originally reported for MySQL 5.0.51a.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "acInsufInfo": true,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "OS_USER"
+          }
+        }
+      ]
+    },
+    {
+      "asset_id": "A4",
+      "cves": [
+        {
+          "cve_id": "CVE-2007-2583",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "The in_decimal::set function in item_cmpfunc.cc in MySQL before 5.0.40, and 5.1 before 5.1.18-beta, allows context-dependent attackers to cause a denial of service (crash) via a crafted IF clause that results in a divide-by-zero error and a NULL pointer dereference.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-0226",
+          "cwe_id": "CWE-119",
+          "description": "Multiple buffer overflows in yaSSL 1.7.5 and earlier, as used in MySQL and possibly other products, allow remote attackers to execute arbitrary code via (1) the ProcessOldClientHello function in handshake.cpp or (2) \"input_buffer& operator>>\" in yassl_imp.cpp.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "OS_USER"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-3963",
+          "cwe_id": "CWE-134",
+          "description": "MySQL 5.0 before 5.0.66, 5.1 before 5.1.26, and 6.0 before 6.0.6 does not properly handle a b'' (b single-quote single-quote) token, aka an empty bit-string literal, which allows remote attackers to cause a denial of service (daemon crash) by using this token in a SQL statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-4098",
+          "cwe_id": "CWE-59",
+          "description": "MySQL before 5.0.67 allows local users to bypass certain privilege checks by calling CREATE TABLE on a MyISAM table with modified (1) DATA DIRECTORY or (2) INDEX DIRECTORY arguments that are originally associated with pathnames without symlinks, and that can point to tables created at a future time at which a pathname is modified to contain a symlink to a subdirectory of the MySQL home data directory. NOTE: this vulnerability exists because of an incomplete fix for CVE-2008-4097.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:H/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "HIGH",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4.6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 3.9,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": true,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2008-7247",
+          "cwe_id": "CWE-59",
+          "description": "sql/sql_table.cc in MySQL 5.0.x through 5.0.88, 5.1.x through 5.1.41, and 6.0 before 6.0.9-alpha, when the data home directory contains a symlink to a different filesystem, allows remote authenticated users to bypass intended access restrictions by calling CREATE TABLE with a (1) DATA DIRECTORY or (2) INDEX DIRECTORY argument referring to a subdirectory that requires following this symlink.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 6.8,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2009-2446",
+          "cwe_id": "CWE-134",
+          "description": "Multiple format string vulnerabilities in the dispatch_command function in libmysqld/sql_parse.cc in mysqld in MySQL 4.0.0 through 5.0.83 allow remote authenticated users to cause a denial of service (daemon crash) and possibly have unspecified other impact via format string specifiers in a database name in a (1) COM_CREATE_DB or (2) COM_DROP_DB request.  NOTE: some of these details are obtained from third party information.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:C/I:C/A:C",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE",
+                "baseScore": 8.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 6.8,
+              "impactScore": 10,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "APP_USER"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4019",
+          "cwe_id": "NVD-CWE-Other",
+          "description": "mysqld in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41 does not (1) properly handle errors during execution of certain SELECT statements with subqueries, and does not (2) preserve certain null_value flags during execution of statements that use the GeomFromWKB function, which allows remote authenticated users to cause a denial of service (daemon crash) via a crafted statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4028",
+          "cwe_id": "CWE-20",
+          "description": "The vio_verify_callback function in viosslfactories.c in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41, when OpenSSL is used, accepts a value of zero for the depth of X.509 certificates, which allows man-in-the-middle attackers to spoof arbitrary SSL-based MySQL servers via a crafted certificate, as demonstrated by a certificate presented by a server linked against the yaSSL library.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6.8
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8.6,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": true
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4484",
+          "cwe_id": "CWE-787",
+          "description": "Multiple stack-based buffer overflows in the CertDecoder::GetName function in src/asn.cpp in TaoCrypt in yaSSL before 1.9.9, as used in mysqld in MySQL 5.0.x before 5.0.90, MySQL 5.1.x before 5.1.43, MySQL 5.5.x through 5.5.0-m2, and other products, allow remote attackers to execute arbitrary code or cause a denial of service (memory corruption and daemon crash) by establishing an SSL connection and sending an X.509 client certificate with a crafted name field, as demonstrated by mysql_overflow1.py and the vd_mysql5 module in VulnDisco Pack Professional 8.11. NOTE: this was originally reported for MySQL 5.0.51a.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "acInsufInfo": true,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "OS_USER"
+          }
+        }
+      ]
+    },
+    {
+      "asset_id": "A5",
+      "cves": [
+        {
+          "cve_id": "CVE-2007-2583",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "The in_decimal::set function in item_cmpfunc.cc in MySQL before 5.0.40, and 5.1 before 5.1.18-beta, allows context-dependent attackers to cause a denial of service (crash) via a crafted IF clause that results in a divide-by-zero error and a NULL pointer dereference.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+
+        {
+          "cve_id": "CVE-2008-3963",
+          "cwe_id": "CWE-134",
+          "description": "MySQL 5.0 before 5.0.66, 5.1 before 5.1.26, and 6.0 before 6.0.6 does not properly handle a b'' (b single-quote single-quote) token, aka an empty bit-string literal, which allows remote attackers to cause a denial of service (daemon crash) by using this token in a SQL statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-4098",
+          "cwe_id": "CWE-59",
+          "description": "MySQL before 5.0.67 allows local users to bypass certain privilege checks by calling CREATE TABLE on a MyISAM table with modified (1) DATA DIRECTORY or (2) INDEX DIRECTORY arguments that are originally associated with pathnames without symlinks, and that can point to tables created at a future time at which a pathname is modified to contain a symlink to a subdirectory of the MySQL home data directory. NOTE: this vulnerability exists because of an incomplete fix for CVE-2008-4097.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:H/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "HIGH",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4.6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 3.9,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": true,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2008-7247",
+          "cwe_id": "CWE-59",
+          "description": "sql/sql_table.cc in MySQL 5.0.x through 5.0.88, 5.1.x through 5.1.41, and 6.0 before 6.0.9-alpha, when the data home directory contains a symlink to a different filesystem, allows remote authenticated users to bypass intended access restrictions by calling CREATE TABLE with a (1) DATA DIRECTORY or (2) INDEX DIRECTORY argument referring to a subdirectory that requires following this symlink.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 6.8,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2009-2446",
+          "cwe_id": "CWE-134",
+          "description": "Multiple format string vulnerabilities in the dispatch_command function in libmysqld/sql_parse.cc in mysqld in MySQL 4.0.0 through 5.0.83 allow remote authenticated users to cause a denial of service (daemon crash) and possibly have unspecified other impact via format string specifiers in a database name in a (1) COM_CREATE_DB or (2) COM_DROP_DB request.  NOTE: some of these details are obtained from third party information.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:C/I:C/A:C",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE",
+                "baseScore": 8.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 6.8,
+              "impactScore": 10,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "APP_USER"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4019",
+          "cwe_id": "NVD-CWE-Other",
+          "description": "mysqld in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41 does not (1) properly handle errors during execution of certain SELECT statements with subqueries, and does not (2) preserve certain null_value flags during execution of statements that use the GeomFromWKB function, which allows remote authenticated users to cause a denial of service (daemon crash) via a crafted statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4028",
+          "cwe_id": "CWE-20",
+          "description": "The vio_verify_callback function in viosslfactories.c in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41, when OpenSSL is used, accepts a value of zero for the depth of X.509 certificates, which allows man-in-the-middle attackers to spoof arbitrary SSL-based MySQL servers via a crafted certificate, as demonstrated by a certificate presented by a server linked against the yaSSL library.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6.8
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8.6,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": true
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": ""
+          }
+        }
+      ]
+    },
+    {
+      "asset_id": "A6",
+      "cves": [
+        {
+          "cve_id": "CVE-2007-2583",
+          "cwe_id": "NVD-CWE-noinfo",
+          "description": "The in_decimal::set function in item_cmpfunc.cc in MySQL before 5.0.40, and 5.1 before 5.1.18-beta, allows context-dependent attackers to cause a denial of service (crash) via a crafted IF clause that results in a divide-by-zero error and a NULL pointer dereference.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-0226",
+          "cwe_id": "CWE-119",
+          "description": "Multiple buffer overflows in yaSSL 1.7.5 and earlier, as used in MySQL and possibly other products, allow remote attackers to execute arbitrary code via (1) the ProcessOldClientHello function in handshake.cpp or (2) \"input_buffer& operator>>\" in yassl_imp.cpp.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "OS_USER"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-3963",
+          "cwe_id": "CWE-134",
+          "description": "MySQL 5.0 before 5.0.66, 5.1 before 5.1.26, and 6.0 before 6.0.6 does not properly handle a b'' (b single-quote single-quote) token, aka an empty bit-string literal, which allows remote attackers to cause a denial of service (daemon crash) by using this token in a SQL statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2008-4098",
+          "cwe_id": "CWE-59",
+          "description": "MySQL before 5.0.67 allows local users to bypass certain privilege checks by calling CREATE TABLE on a MyISAM table with modified (1) DATA DIRECTORY or (2) INDEX DIRECTORY arguments that are originally associated with pathnames without symlinks, and that can point to tables created at a future time at which a pathname is modified to contain a symlink to a subdirectory of the MySQL home data directory. NOTE: this vulnerability exists because of an incomplete fix for CVE-2008-4097.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:H/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "HIGH",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4.6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 3.9,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": true,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "OS_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2008-7247",
+          "cwe_id": "CWE-59",
+          "description": "sql/sql_table.cc in MySQL 5.0.x through 5.0.88, 5.1.x through 5.1.41, and 6.0 before 6.0.9-alpha, when the data home directory contains a symlink to a different filesystem, allows remote authenticated users to bypass intended access restrictions by calling CREATE TABLE with a (1) DATA DIRECTORY or (2) INDEX DIRECTORY argument referring to a subdirectory that requires following this symlink.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 6.8,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2009-2446",
+          "cwe_id": "CWE-134",
+          "description": "Multiple format string vulnerabilities in the dispatch_command function in libmysqld/sql_parse.cc in mysqld in MySQL 4.0.0 through 5.0.83 allow remote authenticated users to cause a denial of service (daemon crash) and possibly have unspecified other impact via format string specifiers in a database name in a (1) COM_CREATE_DB or (2) COM_DROP_DB request.  NOTE: some of these details are obtained from third party information.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:S/C:C/I:C/A:C",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE",
+                "baseScore": 8.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 6.8,
+              "impactScore": 10,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "APP_USER"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4019",
+          "cwe_id": "NVD-CWE-Other",
+          "description": "mysqld in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41 does not (1) properly handle errors during execution of certain SELECT statements with subqueries, and does not (2) preserve certain null_value flags during execution of statements that use the GeomFromWKB function, which allows remote authenticated users to cause a denial of service (daemon crash) via a crafted statement.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "APP_USER",
+            "postCondition": "NONE"
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4028",
+          "cwe_id": "CWE-20",
+          "description": "The vio_verify_callback function in viosslfactories.c in MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41, when OpenSSL is used, accepts a value of zero for the depth of X.509 certificates, which allows man-in-the-middle attackers to spoof arbitrary SSL-based MySQL servers via a crafted certificate, as demonstrated by a certificate presented by a server linked against the yaSSL library.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 6.8
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 8.6,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": true
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": ""
+          }
+        },
+        {
+          "cve_id": "CVE-2009-4484",
+          "cwe_id": "CWE-787",
+          "description": "Multiple stack-based buffer overflows in the CertDecoder::GetName function in src/asn.cpp in TaoCrypt in yaSSL before 1.9.9, as used in mysqld in MySQL 5.0.x before 5.0.90, MySQL 5.1.x before 5.1.43, MySQL 5.5.x through 5.5.0-m2, and other products, allow remote attackers to execute arbitrary code or cause a denial of service (memory corruption and daemon crash) by establishing an SSL connection and sending an X.509 client certificate with a crafted name field, as demonstrated by mysql_overflow1.py and the vd_mysql5 module in VulnDisco Pack Professional 8.11. NOTE: this was originally reported for MySQL 5.0.51a.",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "acInsufInfo": true,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "attack_vector": "NETWORK",
+          "condition": {
+            "preCondition": "NONE",
+            "postCondition": "OS_USER"
+          }
+        }
+      ]
+    }
+  ],
+  "created_by": {
+    "$oid": "62a6ef56b2462bd232d062a1"
+  },
+  "updated_by": {
+    "$oid": "62a6ef56b2462bd232d062a1"
+  },
+  "created_at": {
+    "$date": "2022-06-16T10:15:59.321Z"
+  },
+  "updated_at": {
+    "$date": "2022-06-16T10:22:51.707Z"
+  },
+  "attackers": [
+    {
+      "id": "123456",
+      "name": "Attacker 1",
+      "attack_vector": "NETWORK",
+      "targets": [
+        {
+          "asset_id": "A3",
+          "privilege": "APP_USER",
+          "attack_vector": "NETWORK"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+version: '3.3'
+
+networks:
+  default:
+
+services:
+  fastapi:
+    image: hocsinhnghiemtuc/fastapi
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
+    volumes:
+      - ${SERVER_PATH}:/server
+    container_name: ${COMPOSE_PROJECT_NAME}_fastapi
+    ports:
+      - 8000:8000
+    tty: true
+    working_dir: /server
+    restart: always
+    networks:
+      default:
+  mongodb:
+    image: mongo:4.4-rc
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./data/mongodb:/data/db
+    restart: always
+    container_name: "${COMPOSE_PROJECT_NAME}_mongodb"
+    ports:
+      - ${DB_PORT:-27017}:27017
+    logging:
+      driver: none
+    networks:
+      default:
+  nginx:
+    image: nginx:alpine
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+    restart: always
+    entrypoint: sh
+    command:
+      - -c
+      - envsubst '$${DOCUMENT_ROOT}' < /etc/nginx/conf.d/default.conf.tpl | tee /etc/nginx/conf.d/default.conf && exec nginx -g "daemon off;"
+    environment:
+      - DOCUMENT_ROOT=/web
+      - DOMAIN=${DOMAIN:-localhost}
+    volumes:
+      - ${NGINX_CONFIG_PASSWORD:-./config/nginx/prod/.htpasswd}:/etc/nginx/.htpasswd
+      - ${NGINX_CONFIG_TEMPLATE:-./config/nginx/prod/default.conf}:/etc/nginx/conf.d/default.conf.tpl:ro
+      - ./config/nginx/prod/nginx.crt:/etc/nginx/certs/nginx.crt
+      - ./config/nginx/prod/nginx.key:/etc/nginx/certs/nginx.key
+      - ../core/web/dist:/web
+    ports:
+      - ${PORT:-80}:80
+      - 443:443
+    networks:
+      default:
+    logging:
+      driver: none

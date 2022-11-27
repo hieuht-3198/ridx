@@ -1,0 +1,26 @@
+version: '3.8'
+
+networks:
+  default:
+  # mongodb-network:
+  #   ipam:
+  #     config: 
+  #       - subnet: 172.20.0.0/16
+services:
+  mongodb:
+    image: mongo:4.4-rc
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./data/mongodb:/data/db
+    restart: always
+    container_name: "${COMPOSE_PROJECT_NAME}_mongodb"
+    ports:
+      - ${DB_PORT:-27017}:27017
+    logging:
+      driver: none
+    networks:
+      default:
+      # mongodb-network:
+      #   ipv4_address: 172.20.0.20

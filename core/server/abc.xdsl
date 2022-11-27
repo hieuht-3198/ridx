@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was created by ACADEMIC version of SMILE -->
+<smile version="1.0" id="Unnamed" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="Node_0">
+			<state id="True" />
+			<state id="False" />
+			<probabilities>1 0</probabilities>
+		</cpt>
+		<cpt id="Node_1">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_0</parents>
+			<probabilities>0.86 0.14 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_2">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_1</parents>
+			<probabilities>1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_3">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_1</parents>
+			<probabilities>1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_4">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_2</parents>
+			<probabilities>1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_5">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_2</parents>
+			<probabilities>1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_6">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_3</parents>
+			<probabilities>0.86 0.14 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_7">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_5 Node_4</parents>
+			<probabilities>1 0 1 0 1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_8">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_5</parents>
+			<probabilities>1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_9">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_6</parents>
+			<probabilities>1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_10">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_7 Node_8 Node_9</parents>
+			<probabilities>1 0 1 0 1 0 1 0 1 0 1 0 1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_11">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_10</parents>
+			<probabilities>1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_12">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_10</parents>
+			<probabilities>0.8 0.2 0 1</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="SMILE_ACADEMIC 1.6.2@b061b4f1f63d" name="Unnamed">
+			<node id="Node_0">
+				<name>Attacker_Attacker</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_1">
+				<name>Vulnerability_CVE-2008-4050</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_2">
+				<name>Vulnerability_CVE-2008-1447</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_3">
+				<name>Vulnerability_CVE-2003-0693</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_4">
+				<name>Vulnerability_CVE-2007-4752</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_5">
+				<name>Vulnerability_CVE-2008-0166</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_6">
+				<name>Vulnerability_CVE-2008-0015</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_7">
+				<name>Vulnerability_CVE-2001-1030</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_8">
+				<name>Vulnerability_CVE-2001-0439</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_9">
+				<name>Vulnerability_CVE-2004-0840</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_10">
+				<name>Vulnerability_CVE-2008-3060</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_11">
+				<name>Vulnerability_CVE-2009-1535</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_12">
+				<name>Vulnerability_CVE-2008-5416</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+		</genie>
+	</extensions>
+</smile>

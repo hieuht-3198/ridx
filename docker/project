@@ -1,0 +1,44 @@
+#!/bin/bash
+
+__getenv() {
+    grep -m1 ^$1= .env | cut -d'=' -f2
+}
+
+up() {
+    docker-compose up -d $@
+}
+
+up-logs() {
+    docker-compose up $@
+}
+
+down() {
+    docker-compose down $@
+}
+
+ps() {
+    docker ps -f name=$(__getenv COMPOSE_PROJECT_NAME)_
+}
+
+sh() {
+    docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1 sh
+}
+
+bash() {
+    docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1 bash
+}
+
+exec() {
+    docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1 ${@:2}
+}
+
+logs() {
+    docker logs $(__getenv COMPOSE_PROJECT_NAME)_$1 ${@:2}
+}
+
+inspect() {
+    docker inspect $(__getenv COMPOSE_PROJECT_NAME)_$1 ${@:2}
+}
+
+
+$@

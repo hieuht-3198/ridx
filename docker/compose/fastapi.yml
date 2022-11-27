@@ -1,0 +1,25 @@
+version: '3.8'
+
+networks:
+  default:
+  # fastapi-network:
+  #   ipam:
+  #     config: 
+  #       - subnet: 172.18.0.0/16
+      
+services:
+  fastapi:
+    image: hocsinhnghiemtuc/fastapi
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ${SERVER_PATH}:/server
+    container_name: ${COMPOSE_PROJECT_NAME}_fastapi
+    ports:
+      - 8000:8000
+    tty: true
+    working_dir: /server
+    restart: always
+    networks:
+      default:
+      # fastapi-network:
+      #     ipv4_address: 172.18.0.18

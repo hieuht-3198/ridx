@@ -1,0 +1,803 @@
+{
+  "cves": [
+    {
+      "asset_id": 1,
+      "cves": [
+        {
+          "cve_id": "CVE-2008-4050",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:N/C:C/I:C/A:C",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "NONE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE",
+                "baseScore": 9.3
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 8.6,
+              "impactScore": 10,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": true
+            }
+          },
+          "description": "A certain ActiveX control in fwRemoteCfg.dll 3.3.3.1 in Friendly Technologies FriendlyPPPoE Client 3.0.0.57 allows remote attackers to (1) create and read arbitrary registry values via the RegistryValue method, and (2) read arbitrary files via the GetTextFile method.",
+          "id": "62a2fc7759ab1a92cbf4bc55",
+          "assets": "Administrative server"
+        }
+      ]
+    },
+    {
+      "asset_id": 2,
+      "cves": [
+        {
+          "cve_id": "CVE-2008-1447",
+          "impact": {
+            "baseMetricV3": {
+              "cvssV3": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:N/I:H/A:N",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "CHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE",
+                "baseScore": 6.8,
+                "baseSeverity": "MEDIUM"
+              },
+              "exploitabilityScore": 2.2,
+              "impactScore": 4
+            },
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:N/I:P/A:N",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "NONE",
+                "baseScore": 5
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 10,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "description": "The DNS protocol, as implemented in (1) BIND 8 and 9 before 9.5.0-P1, 9.4.2-P1, and 9.3.5-P1; (2) Microsoft DNS in Windows 2000 SP4, XP SP2 and SP3, and Server 2003 SP1 and SP2; and other implementations allow remote attackers to spoof DNS traffic via a birthday attack that uses in-bailiwick referrals to conduct cache poisoning against recursive resolvers, related to insufficient randomness of DNS transaction IDs and source ports, aka \"DNS Insufficient Socket Entropy Vulnerability\" or \"the Kaminsky bug.\"",
+          "id": "62a2fc7759ab1a92cbf4b261",
+          "assets": "DNS server"
+        },
+        {
+          "cve_id": "CVE-2003-0693",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:C/I:C/A:C",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE",
+                "baseScore": 10
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 10,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "description": "A \"buffer management error\" in buffer_append_space of buffer.c for OpenSSH before 3.7 may allow remote attackers to execute arbitrary code by causing an incorrect amount of memory to be freed and corrupting the heap, a different vulnerability than CVE-2003-0695.",
+          "id": "62a2fc5b59ab1a92cbf4569e",
+          "assets": "DNS server"
+        }
+      ]
+    },
+    {
+      "asset_id": 3,
+      "cves": [
+        {
+          "cve_id": "CVE-2007-4752",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": true,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "description": "ssh in OpenSSH before 4.7 does not properly handle when an untrusted cookie cannot be created and uses a trusted X11 cookie instead, which allows attackers to violate intended policy and gain privileges by causing an X client to be treated as trusted.",
+          "id": "62a2fc7259ab1a92cbf4a56e",
+          "assets": "Gateway server"
+        },
+        {
+          "cve_id": "CVE-2008-0166",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:C/I:N/A:N",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "NONE",
+                "baseScore": 7.8
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "description": "OpenSSL 0.9.8c-1 up to versions before 0.9.8g-9 on Debian-based operating systems uses a random number generator that generates predictable numbers, which makes it easier for remote attackers to conduct brute force guessing attacks against cryptographic keys.",
+          "id": "62a2fc7759ab1a92cbf4ad7c",
+          "assets": "Gateway server"
+        }
+      ]
+    },
+    {
+      "asset_id": 4,
+      "cves": [
+        {
+          "cve_id": "CVE-2001-0439",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "description": "licq before 1.0.3 allows remote attackers to execute arbitrary commands via shell metacharacters in a URL.",
+          "id": "62a2fc4f59ab1a92cbf4464e",
+          "assets": "Local desktops"
+        },
+        {
+          "cve_id": "CVE-2008-0015",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:M/Au:N/C:C/I:C/A:C",
+                "accessVector": "NETWORK",
+                "accessComplexity": "MEDIUM",
+                "authentication": "NONE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE",
+                "baseScore": 9.3
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 8.6,
+              "impactScore": 10,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": true
+            }
+          },
+          "description": "Stack-based buffer overflow in the CComVariant::ReadFromStream function in the Active Template Library (ATL), as used in the MPEG2TuneRequest ActiveX control in msvidctl.dll in DirectShow, in Microsoft Windows 2000 SP4, XP SP2 and SP3, Server 2003 SP2, Vista Gold, SP1, and SP2, and Server 2008 Gold and SP2 allows remote attackers to execute arbitrary code via a crafted web page, as exploited in the wild in July 2009, aka \"Microsoft Video ActiveX Control Vulnerability.\"",
+          "id": "62a2fc7759ab1a92cbf4acef",
+          "assets": "Local desktops"
+        },
+        {
+          "cve_id": "CVE-2001-1030",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "description": "Squid before 2.3STABLE5 in HTTP accelerator mode does not enable access control lists (ACLs) when the httpd_accel_host and http_accel_with_proxy off settings are used, which allows attackers to bypass the ACLs and conduct unauthorized activities such as port scanning.",
+          "id": "62a2fc4f59ab1a92cbf44882",
+          "assets": "Local desktops"
+        }
+      ]
+    },
+    {
+      "asset_id": 5,
+      "cves": [
+        {
+          "cve_id": "CVE-2004-0840",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:C/I:C/A:C",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE",
+                "baseScore": 10
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 10,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "description": "The SMTP (Simple Mail Transfer Protocol) component of Microsoft Windows XP 64-bit Edition, Windows Server 2003, Windows Server 2003 64-bit Edition, and the Exchange Routing Engine component of Exchange Server 2003, allows remote attackers to execute arbitrary code via a malicious DNS response message containing length values that are not properly validated.",
+          "id": "62a2fc5d59ab1a92cbf45d3c",
+          "assets": "Mail server"
+        },
+        {
+          "cve_id": "CVE-2008-3060",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:N/A:N",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "NONE",
+                "baseScore": 5
+              },
+              "severity": "MEDIUM",
+              "exploitabilityScore": 10,
+              "impactScore": 2.9,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "description": "V-webmail 1.5.0 allows remote attackers to obtain sensitive information via (1) malformed input in the login page (includes/local.hooks.php) and (2) an invalid session ID, which reveals the installation path in an error message.",
+          "id": "62a2fc7759ab1a92cbf4b882",
+          "assets": "Mail server"
+        }
+      ]
+    },
+    {
+      "asset_id": 6,
+      "cves": [
+        {
+          "cve_id": "CVE-2008-5416",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:C/I:C/A:C",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE",
+                "baseScore": 9
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 8,
+              "impactScore": 10,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "description": "Heap-based buffer overflow in Microsoft SQL Server 2000 SP4, 8.00.2050, 8.00.2039, and earlier; SQL Server 2000 Desktop Engine (MSDE 2000) SP4; SQL Server 2005 SP2 and 9.00.1399.06; SQL Server 2000 Desktop Engine (WMSDE) on Windows Server 2003 SP1 and SP2; and Windows Internal Database (WYukon) SP2 allows remote authenticated users to cause a denial of service (access violation exception) or execute arbitrary code by calling the sp_replwritetovarbin extended stored procedure with a set of invalid parameters that trigger memory overwrite, aka \"SQL Server sp_replwritetovarbin Limited Memory Overwrite Vulnerability.\"",
+          "id": "62a2fc7759ab1a92cbf4c188",
+          "assets": "SQL server"
+        }
+      ]
+    },
+    {
+      "asset_id": 7,
+      "cves": [
+        {
+          "cve_id": "CVE-2009-1535",
+          "impact": {
+            "baseMetricV2": {
+              "cvssV2": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5
+              },
+              "severity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          },
+          "description": "The WebDAV extension in Microsoft Internet Information Services (IIS) 5.1 and 6.0 allows remote attackers to bypass URI-based protection mechanisms, and list folders or read, create, or modify files, via a %c0%af (Unicode / character) at an arbitrary position in the URI, as demonstrated by inserting %c0%af into a \"/protected/\" initial pathname component to bypass the password protection on the protected\\ folder, aka \"IIS 5.1 and 6.0 WebDAV Authentication Bypass Vulnerability,\" a different vulnerability than CVE-2009-1122.",
+          "id": "62a2fc7c59ab1a92cbf4cea6",
+          "assets": "Web server"
+        }
+      ]
+    }
+  ],
+  "attack_graph": {
+    "edges": [
+      {
+        "source": "0",
+        "target": "1",
+        "id": "n0_node1"
+      },
+      {
+        "source": "1",
+        "target": "2",
+        "id": "node0_node1"
+      },
+      {
+        "source": "1",
+        "target": "3",
+        "id": "node1_node2"
+      },
+      {
+        "source": "2",
+        "target": "4",
+        "id": "node1_node3"
+      },
+      {
+        "source": "2",
+        "target": "5",
+        "id": "node1_node4"
+      },
+      {
+        "source": "3",
+        "target": "7",
+        "id": "node2_node5"
+      },
+      {
+        "source": "7",
+        "target": "9",
+        "id": "node2_node6"
+      },
+      {
+        "source": "5",
+        "target": "6",
+        "id": "node3_node7"
+      },
+      {
+        "source": "5",
+        "target": "8",
+        "id": "node3_node8"
+      },
+      {
+        "source": "4",
+        "target": "8",
+        "id": "node4_node9"
+      },
+      {
+        "source": "8",
+        "target": "10",
+        "id": "nod_node5"
+      },
+      {
+        "source": "6",
+        "target": "10",
+        "id": "no_node6"
+      },
+      {
+        "source": "9",
+        "target": "10",
+        "id": "nod_node7"
+      },
+      {
+        "source": "10",
+        "target": "12",
+        "id": "nodnode8"
+      },
+      {
+        "source": "10",
+        "target": "11",
+        "id": "nod_node9"
+      }
+    ],
+    "nodes": [
+      {
+        "x": 41,
+        "y": 64,
+        "is_attacker": true,
+        "id": "0",
+        "label": "Attacker",
+        "type": "node",
+        "shape": "flow-circle",
+        "color": "#FA8C16",
+        "name": "Attacker"
+      },
+      {
+        "x": 290,
+        "y": 64,
+        "is_attacker": false,
+        "id": "1",
+        "label": "CVE-2008-4050",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2008-4050",
+        "asset_id": 1
+      },
+      {
+        "x": 564,
+        "y": 109,
+        "is_attacker": false,
+        "id": "2",
+        "label": "CVE-2008-1447",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2008-1447",
+        "asset_id": 2
+      },
+      {
+        "x": 564,
+        "y": 19,
+        "is_attacker": false,
+        "id": "3",
+        "label": "CVE-2003-0693",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2003-0693",
+        "asset_id": 2
+      },
+      {
+        "x": 838,
+        "y": 199,
+        "is_attacker": false,
+        "id": "4",
+        "label": "CVE-2007-4752",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2007-4752",
+        "asset_id": 3
+      },
+      {
+        "x": 838,
+        "y": 109,
+        "is_attacker": false,
+        "id": "5",
+        "label": "CVE-2008-0166",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2008-0166",
+        "asset_id": 3
+      },
+      {
+        "x": 838,
+        "y": 19,
+        "is_attacker": false,
+        "id": "7",
+        "label": "CVE-2008-0015",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2008-0015",
+        "asset_id": 4
+      },
+      {
+        "x": 1112,
+        "y": 199,
+        "is_attacker": false,
+        "id": "8",
+        "label": "CVE-2001-1030",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2001-1030",
+        "asset_id": 4
+      },
+      {
+        "x": 1112,
+        "y": 109,
+        "is_attacker": false,
+        "id": "6",
+        "label": "CVE-2001-0439",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2001-0439",
+        "asset_id": 4
+      },
+      {
+        "x": 1112,
+        "y": 19,
+        "is_attacker": false,
+        "id": "9",
+        "label": "CVE-2004-0840",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2004-0840",
+        "asset_id": 5
+      },
+      {
+        "x": 1386,
+        "y": 109,
+        "is_attacker": false,
+        "id": "10",
+        "label": "CVE-2008-3060",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2008-3060",
+        "asset_id": 5
+      },
+      {
+        "x": 1660,
+        "y": 154,
+        "is_attacker": false,
+        "id": "12",
+        "label": "CVE-2009-1535",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2009-1535",
+        "asset_id": 7
+      },
+      {
+        "x": 1660,
+        "y": 64,
+        "is_attacker": false,
+        "id": "11",
+        "label": "CVE-2008-5416",
+        "type": "node",
+        "shape": "flow-capsule",
+        "color": "#722ED1",
+        "cve_id": "CVE-2008-5416",
+        "asset_id": 6
+      }
+    ]
+  },
+  "countermeasures": [
+    {
+      "id": 1,
+      "name": "Filtering external traffics",
+      "cover_cves": [
+        "CVE-2004-0840",
+        "CVE-2009-1535"
+      ],
+      "cost": 70,
+      "coverage": 0.62
+    },
+    {
+      "id": 2,
+      "name": "Apply MS workaround",
+      "cover_cves": [
+        "CVE-2008-0015"
+      ],
+      "cost": 14,
+      "coverage": 0.65
+    },
+    {
+      "id": 3,
+      "name": "Disable WebDAV",
+      "cover_cves": [
+        "CVE-2009-1535"
+      ],
+      "cost": 250,
+      "coverage": 0.44
+    },
+    {
+      "id": 4,
+      "name": "Patch OpenSSH",
+      "cover_cves": [
+        "CVE-2003-0693",
+        "CVE-2007-4752"
+      ],
+      "cost": 63,
+      "coverage": 0.75
+    },
+    {
+      "id": 5,
+      "name": "Disable port scan",
+      "cover_cves": [
+        "CVE-2001-1030"
+      ],
+      "cost": 11,
+      "coverage": 0.45
+    },
+    {
+      "id": 6,
+      "name": "Add network IDS",
+      "cover_cves": [
+        "CVE-2008-3060"
+      ],
+      "cost": 102,
+      "coverage": 0.38
+    },
+    {
+      "id": 7,
+      "name": "Gateway firewall",
+      "cover_cves": [
+        "CVE-2001-0439"
+      ],
+      "cost": 205,
+      "coverage": 0.33
+    },
+    {
+      "id": 8,
+      "name": "Query restriction",
+      "cover_cves": [
+        "CVE-2008-5416"
+      ],
+      "cost": 84,
+      "coverage": 0.28
+    },
+    {
+      "id": 9,
+      "name": "Apply MS09-004 work around",
+      "cover_cves": [
+        "CVE-2008-5416"
+      ],
+      "cost": 31,
+      "coverage": 0.43
+    },
+    {
+      "id": 13,
+      "name": "Encryption",
+      "cover_cves": [
+        "CVE-2008-1447"
+      ],
+      "cost": 34,
+      "coverage": 0.31
+    },
+    {
+      "id": 10,
+      "name": "Limit access to DNS server",
+      "cover_cves": [
+        "CVE-2008-1447"
+      ],
+      "cost": 53,
+      "coverage": 0.5
+    },
+    {
+      "id": 11,
+      "name": "Digital signature",
+      "cover_cves": [
+        "CVE-2008-3060"
+      ],
+      "cost": 33,
+      "coverage": 0.3
+    },
+    {
+      "id": 12,
+      "name": "Use POP3",
+      "cover_cves": [
+        "CVE-2008-3060"
+      ],
+      "cost": 153,
+      "coverage": 0.25
+    }
+  ],
+  "assets": [
+    {
+      "id": 1,
+      "name": "Administrative server"
+    },
+    {
+      "id": 2,
+      "name": "DNS server"
+    },
+    {
+      "id": 3,
+      "name": "Gateway server"
+    },
+    {
+      "id": 4,
+      "name": "Local desktops"
+    },
+    {
+      "id": 5,
+      "name": "Mail server"
+    },
+    {
+      "id": 6,
+      "name": "SQL server"
+    },
+    {
+      "id": 7,
+      "name": "Web server"
+    }
+  ],
+  "damage_criterion": 100,
+  "benefit_criterion": 100,
+  "security_goals": [
+    {
+      "id": "1",
+      "name": "Bảo đảm máy chủ WebServer hoạt động 24/7",
+      "description": "Máy chủ WebServer luôn luôn hoạt động",
+      "asset_id": 7,
+      "confidentiality": "HIGH",
+      "availability": "HIGH",
+      "integrity": "LOW"
+    },
+    {
+      "id": "2",
+      "name": "Toàn vẹn dữ liệu",
+      "description": "Dữ liệu không bị đánh cắp trên máy chủ SQL Server",
+      "asset_id": 6,
+      "confidentiality": "HIGH",
+      "availability": "HIGH",
+      "integrity": "HIGH"
+    }
+  ]
+}

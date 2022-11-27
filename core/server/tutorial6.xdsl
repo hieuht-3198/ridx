@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was created by ACADEMIC version of SMILE -->
+<smile version="1.0" id="Unnamed" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="Location">
+			<state id="True" />
+			<state id="False" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Rain" dynamic="plate">
+			<state id="True" />
+			<state id="False" />
+			<parents>Location</parents>
+			<probabilities>0.7 0.3 0 1</probabilities>
+		</cpt>
+	</nodes>
+	<dynamic numslices="2">
+		<cpt id="Rain" order="1">
+			<parents>Rain</parents>
+			<probabilities>1 0 0.7 0.3 0 1 0 1</probabilities>
+		</cpt>
+	</dynamic>
+	<extensions>
+		<genie version="1.0" app="SMILE_ACADEMIC 1.6.2@b061b4f1f63d" name="Unnamed">
+			<plate leftwidth="120" rightwidth="120">20 20 620 320</plate>
+			<node id="Location">
+				<name>Location</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>160 360 245 415</position>
+			</node>
+			<node id="Rain">
+				<name>Rain</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>380 240 465 295</position>
+			</node>
+		</genie>
+	</extensions>
+</smile>

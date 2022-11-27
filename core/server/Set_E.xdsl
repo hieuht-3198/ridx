@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was created by ACADEMIC version of SMILE -->
+<smile version="1.0" id="Unnamed" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="Node_0">
+			<state id="True" />
+			<state id="False" />
+			<probabilities>1 0</probabilities>
+		</cpt>
+		<cpt id="Node_1" dynamic="plate">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_0</parents>
+			<probabilities>0.2 0.8 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_2" dynamic="plate">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_1</parents>
+			<probabilities>1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_3" dynamic="plate">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_2 Node_1</parents>
+			<probabilities>1 0 1 0 1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_4" dynamic="plate">
+			<state id="True" />
+			<state id="False" />
+			<parents>Node_3 Node_2 Node_1</parents>
+			<probabilities>1 0 1 0 1 0 1 0 1 0 1 0 1 0 0 1</probabilities>
+		</cpt>
+	</nodes>
+	<dynamic numslices="10">
+		<cpt id="Node_1" order="1">
+			<parents>Node_1</parents>
+			<probabilities>1 0 0.2 0.8 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_2" order="1">
+			<parents>Node_2</parents>
+			<probabilities>1 0 1 0 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_3" order="1">
+			<parents>Node_3</parents>
+			<probabilities>1 0 1 0 1 0 1 0 1 0 1 0 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="Node_4" order="1">
+			<parents>Node_4</parents>
+			<probabilities>1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 0 1 0 1</probabilities>
+		</cpt>
+	</dynamic>
+	<extensions>
+		<genie version="1.0" app="SMILE_ACADEMIC 1.6.2@b061b4f1f63d" name="Unnamed">
+			<plate leftwidth="120" rightwidth="120">20 20 620 320</plate>
+			<node id="Node_0">
+				<name>Attacker_Internet_0</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_1">
+				<name>Vulnerability_CVE-2022-29885_1</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_2">
+				<name>Vulnerability_CVE-2022-27385_2</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_3">
+				<name>Vulnerability_CVE-2022-27449_3</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+			<node id="Node_4">
+				<name>Vulnerability_CVE-2021-46669_4</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>-38 -18 38 18</position>
+			</node>
+		</genie>
+	</extensions>
+</smile>
